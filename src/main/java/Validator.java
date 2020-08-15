@@ -6,17 +6,19 @@ public class Validator {
         this.phoneNumber = phoneNumber;
     }
 
+    //display appropriate message depending on number validity
     public boolean displayValidityMessage() {
         if (checkNoValidity()) {
-            System.out.println("[valid number]");
+            System.out.println(" [valid number]");
             return true;
         } else {
-            System.out.println("[invalid number]");
+            System.out.println(" [invalid number]");
             return false;
         }
     }
 
-    private boolean checkNoValidity() {
+    //check if number is a valid Greek phone number
+    public boolean checkNoValidity() {
         String numberToBeChecked = removeWhiteSpace(this.phoneNumber);
         char[] phoneNumberAsArr = numberToBeChecked.toCharArray();
 
@@ -32,12 +34,14 @@ public class Validator {
         return false;
     }
 
-    private String getDigitsOfNo(int numberOfDigits) {
+    //retrieve x amount of begging digits of a number
+    public String getDigitsOfNo(int numberOfDigits) {
         String numberNoSpace = removeWhiteSpace(this.phoneNumber);
         String requiredDigits = numberNoSpace.substring(0, numberOfDigits);
         return requiredDigits;
     }
 
+    //remove whitespace from a string
     public String removeWhiteSpace(String input) {
         input = input.replaceAll("\\s+", "");
         return input;

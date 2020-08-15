@@ -21,13 +21,4 @@ public class InitialNumberCheckerTest {
         Assert.assertTrue(noChecker.doesInputContainLetters(correctInput));
     }
 
-//    @Test
-//    public void testRemoveWhiteSpace() {
-//        InitialNumberChecker noChecker = new InitialNumberChecker();
-//        String input = "test test";
-//        String output = "testtest";
-//        String removedSpace = noChecker.removeWhiteSpace(input);
-//        Assert.assertEquals(output, removedSpace);
-//
-//    }
 }

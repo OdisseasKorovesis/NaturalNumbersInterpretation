@@ -9,5 +9,8 @@
         <module name="NaturalNoInterpretation" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="NaturalNoInterpretation" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

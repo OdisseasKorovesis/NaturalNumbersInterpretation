@@ -1,24 +1,10 @@
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
-       String input = initializeProcess();
+        getCombinationsAndValidate();
 
-//        String phone = "21052 67 28 969";
-//        String groupDigits[] = phone.split("\\s+");
-//        for (String digits : groupDigits) {
-//            StringBuilder sb = new StringBuilder();
-//            sb.append(digits);
-//            sb.reverse();
-//            String reversed = sb.toString();
-//            for(int i = 0; i < reversed.toCharArray().length; i++) {
-//                System.out.print(reversed.toCharArray()[i] + " ");
-//                for(int j = 0; j < i; j++) {
-//                    System.out.print("0");
-//                }
-//                System.out.println(" ");
-//            }
-//            System.out.println(" ");
-//        }
     }
 
     public static String initializeProcess() {
@@ -27,5 +13,15 @@ public class Main {
         Validator val = new Validator(input);
         val.displayValidityMessage();
         return input;
+    }
+
+    public static void getCombinationsAndValidate() {
+        String input = initializeProcess();
+        InitialNumberChecker inChecker = new InitialNumberChecker();
+        ArrayList<Node> nodeListFromNo = new ArrayList(inChecker.convertNumberIntoListOfNodes(input));
+        Node root = nodeListFromNo.get(0);
+        nodeListFromNo.remove(0);
+        root.getAllCombinationsFromList(nodeListFromNo, root);
+
     }
 }
