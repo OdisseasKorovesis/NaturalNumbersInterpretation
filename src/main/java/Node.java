@@ -34,86 +34,34 @@ public class Node {
         this.parent = parent;
     }
 
-    //add children to nodes recursively
-    public Node addChild(Node child) {
-
-        //if number is up to 13 it cannot yield possible combinations
-        //so it is immediately added as child
-        if (child.value < 13) {
-            child.setParent(this);
-            this.children.add(child);
-
-        //if number is more than 13 it can yield possible combinations
-        } else if (child.value >= 13 && child.value < 100) {
-
-            //firstly we set the number itself as a child
-            child.setParent(this);
-            this.children.add(child);
-
-            //then we set the tens place value as a child
-            //and we keep the remainder
-            int tensPlaceValue = child.value - (child.value % 10);
-            int remainder = child.value % 10;
-            Node tensNode = new Node(tensPlaceValue);
-            tensNode.setParent(this);
-            this.children.add(tensNode);
-
-            //we use recursion in order to add the remainder
-            Node remainderNode = new Node(remainder);
-            tensNode.addChild(remainderNode);
-
-        //if number is more than 100 it can yield more possible combinations
-        } else if (child.value >= 100) {
-
-            //set itself as child
-            child.setParent(this);
-            this.children.add(child);
-
-            //set its hundreds place value and use recursion to add the remainder
-            int hundredsPlaceValue = child.value - (child.value % 100);
-            int hundredsRemainder = child.value % 100;
-            Node hundredsNode = new Node(hundredsPlaceValue);
-            hundredsNode.setParent(this);
-            this.children.add(hundredsNode);
-            Node hundredsRemainderNode = new Node(hundredsRemainder);
-            hundredsNode.addChild(hundredsRemainderNode);
-
-            //repeat the above mentioned process for its tens place value
-            int tensPlaceValue = child.value - (child.value % 10);
-            int tensRemainder = child.value % 10;
-            Node tensNode = new Node(tensPlaceValue);
-            tensNode.setParent(this);
-            this.children.add(tensNode);
-
-            //χρησιμοποιούμε αναδρομή για το υπόλοιπο
-            Node tensRemainderNode = new Node(tensRemainder);
-            tensNode.addChild(tensRemainderNode);
-
-
-        }
-
-        return child;
-    }
-
     //print tree structure
-    public void printTree(Node node, String appender) {
-        System.out.println(appender + node.getValue());
+    // (unnecessary method for program execution, was used for testing purposes)
+    public void printTree(Node node, String margin) {
+        System.out.println(margin + node.getValue());
         for (Node child :
                 node.getChildren()) {
-            child.printTree(child, appender + appender);
+            child.printTree(child, margin + margin);
         }
     }
 
     //print all possible interpretations of given list of nodes and validate them as Greek phone numbers
     public List<List<Node>> getAllCombinationsFromList(ArrayList<Node> listOfNodes, Node root) {
-        System.out.println();
+
 
         //loop through given list of nodes adding each subsequent element
         //only to the leaf nodes of the tree to create the final tree
-        for (Node node : listOfNodes) {
+        for (int i = 0; i<listOfNodes.size(); i++) {
             Set<Node> leafNodes = root.getAllLeafNodes();
             for (Node leafNode : leafNodes) {
-                leafNode.addChild(node);
+                //if not last item of list extract next Node value for use with
+                //nodes that have a value entirely divisible by 10
+                if(listOfNodes.size() > (i + 1)) {
+                    leafNode.addChild(listOfNodes.get(i), listOfNodes.get(i + 1).getValue());
+                }
+                else {
+                    leafNode.addChild(listOfNodes.get(i));
+                }
+
             }
         }
 
@@ -128,7 +76,7 @@ public class Node {
             //initialize an array with length equal to the nodes of the current combination
             String[] possibleNo = new String[list.size()];
             //print the count of interpretations that have been made
-            System.out.print("Interpretation " + interpretationCounter + ": " );
+            System.out.print("Interpretation " + interpretationCounter + ": ");
             //loop through all the nodes of the current combination
             for (int count = 0; count < list.size(); count++) {
                 //print its value
@@ -192,5 +140,143 @@ public class Node {
         } else {
             return getPaths0(head);
         }
+    }
+
+    //add children to nodes recursively
+    public Node addChild(Node child) {
+
+        //if number is up to 13 it cannot yield possible combinations
+        //so it is immediately added as child
+        if (child.value < 13 || child.value % 10 == 0) {
+            child.setParent(this);
+            this.children.add(child);
+
+            //if number is more than 13 it can yield possible combinations
+        } else if (child.value >= 13 && child.value < 100) {
+
+
+            //firstly we set the number itself as a child
+            child.setParent(this);
+            this.children.add(child);
+
+            //then we set the tens place value as a child
+            //and we keep the remainder
+            int tensPlaceValue = child.value - (child.value % 10);
+            int remainder = child.value % 10;
+            Node tensNode = new Node(tensPlaceValue);
+            tensNode.setParent(this);
+            this.children.add(tensNode);
+
+            //we use recursion in order to add the remainder
+            Node remainderNode = new Node(remainder);
+            tensNode.addChild(remainderNode);
+
+            //if number is more than 100 it can yield more possible combinations
+        } else if (child.value >= 100) {
+
+            //set itself as child
+            child.setParent(this);
+            this.children.add(child);
+
+            //set its hundreds place value and use recursion to add the remainder
+            int hundredsPlaceValue = child.value - (child.value % 100);
+            int hundredsRemainder = child.value % 100;
+            Node hundredsNode = new Node(hundredsPlaceValue);
+            hundredsNode.setParent(this);
+            this.children.add(hundredsNode);
+            Node hundredsRemainderNode = new Node(hundredsRemainder);
+            hundredsNode.addChild(hundredsRemainderNode);
+
+            //repeat the above mentioned process for its tens place value
+            int tensPlaceValue = child.value - (child.value % 10);
+            int tensRemainder = child.value % 10;
+            Node tensNode = new Node(tensPlaceValue);
+            tensNode.setParent(this);
+            this.children.add(tensNode);
+
+            //we use recursion in order to add the remainder
+            Node tensRemainderNode = new Node(tensRemainder);
+            tensNode.addChild(tensRemainderNode);
+
+
+        }
+
+        return child;
+    }
+
+    //overloaded addChild method for use with numbers entirely divisble by 10
+    public Node addChild(Node child, Integer nextNodeValue) {
+
+        //if child value is not entirely divisible by 10
+        //begin normal add child process
+        if (child.value % 10 != 0) {
+            //if number is up to 13 it cannot yield possible combinations
+            //so it is immediately added as child
+            if (child.value < 13) {
+                child.setParent(this);
+                this.children.add(child);
+
+                //if number is more than 13 it can yield possible combinations
+            } else if (child.value >= 13 && child.value < 100) {
+
+
+                //firstly we set the number itself as a child
+                child.setParent(this);
+                this.children.add(child);
+
+                //then we set the tens place value as a child
+                //and we keep the remainder
+                int tensPlaceValue = child.value - (child.value % 10);
+                int remainder = child.value % 10;
+                Node tensNode = new Node(tensPlaceValue);
+                tensNode.setParent(this);
+                this.children.add(tensNode);
+
+                //we use recursion in order to add the remainder
+                Node remainderNode = new Node(remainder);
+                tensNode.addChild(remainderNode);
+
+                //if number is more than 100 it can yield more possible combinations
+            } else if (child.value >= 100) {
+
+                //set itself as child
+                child.setParent(this);
+                this.children.add(child);
+
+                //set its hundreds place value and use recursion to add the remainder
+                int hundredsPlaceValue = child.value - (child.value % 100);
+                int hundredsRemainder = child.value % 100;
+                Node hundredsNode = new Node(hundredsPlaceValue);
+                hundredsNode.setParent(this);
+                this.children.add(hundredsNode);
+                Node hundredsRemainderNode = new Node(hundredsRemainder);
+                hundredsNode.addChild(hundredsRemainderNode, 0);
+
+                //repeat the above mentioned process for its tens place value
+                int tensPlaceValue = child.value - (child.value % 10);
+                int tensRemainder = child.value % 10;
+                Node tensNode = new Node(tensPlaceValue);
+                tensNode.setParent(this);
+                this.children.add(tensNode);
+
+                //we use recursion in order to add the remainder
+                Node tensRemainderNode = new Node(tensRemainder);
+                tensNode.addChild(tensRemainderNode);
+            }
+
+        //if value of child is entirely divisible by 10
+        } else {
+            //set as child immediately without breaking into parts(i.e. 10 should not be broken down to 10 0)
+            child.setParent(this);
+            this.children.add(child);
+            //check if combination of child Node and next Node should be added as a child (i.e. 30 6 should be added as 36)
+            if(child.getValue() < 100 && nextNodeValue < 10 || child.getValue() > 100 && nextNodeValue < 100) {
+                Node additionNode = new Node(child.value + nextNodeValue);
+                this.children.add(additionNode);
+            }
+
+        }
+
+        return child;
     }
 }

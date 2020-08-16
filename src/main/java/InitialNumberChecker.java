@@ -25,7 +25,6 @@ public class InitialNumberChecker {
             }
         }
         sc.close();
-        System.out.println("The phone number you have entered is: " + input);
         return input;
     }
 

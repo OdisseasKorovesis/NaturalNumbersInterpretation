@@ -34,7 +34,7 @@ public class Validator {
         return false;
     }
 
-    //retrieve x amount of begging digits of a number
+    //retrieve x amount of beginning digits of a number
     public String getDigitsOfNo(int numberOfDigits) {
         String numberNoSpace = removeWhiteSpace(this.phoneNumber);
         String requiredDigits = numberNoSpace.substring(0, numberOfDigits);
