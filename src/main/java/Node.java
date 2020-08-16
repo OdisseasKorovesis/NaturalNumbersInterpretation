@@ -45,7 +45,7 @@ public class Node {
     }
 
     //print all possible interpretations of given list of nodes and validate them as Greek phone numbers
-    public List<List<Node>> getAllCombinationsFromList(ArrayList<Node> listOfNodes, Node root) {
+    public List<List<Node>> getAllCombinationsFromList(ArrayList<Node> listOfNodes, Node root, int leadingZeroesToBeAdded) {
 
 
         //loop through given list of nodes adding each subsequent element
@@ -73,16 +73,35 @@ public class Node {
 
         //loop through each combination
         for (List<Node> list : lists) {
-            //initialize an array with length equal to the nodes of the current combination
-            String[] possibleNo = new String[list.size()];
+            //declare an array which will host the nodes of the current combination
+            String[] possibleNo;
+
+            //check if leading zeroes were recorded
+            if(leadingZeroesToBeAdded == 0) {
+                //if no array length should be equal the node list size
+                possibleNo = new String[list.size()];
+            } else {
+                //else an additional place should be inserted
+                //containing a string with as many zeroes as were initially recorded
+                possibleNo = new String[list.size() + 1];
+                StringBuilder str = new StringBuilder();
+                for(int i = 0; i<leadingZeroesToBeAdded; i++) {
+                    str.append("0");
+                }
+                possibleNo[0] = str.toString();
+            }
+
             //print the count of interpretations that have been made
             System.out.print("Interpretation " + interpretationCounter + ": ");
+
+            //determine if leading zeroes were added or not in order to start placing nodes into correct index
+            int startingPoint;
+            startingPoint = (leadingZeroesToBeAdded == 0) ? 0 : 1;
+
             //loop through all the nodes of the current combination
             for (int count = 0; count < list.size(); count++) {
-                //print its value
-                System.out.print(list.get(count).getValue());
                 //add its value to the array of the current combination
-                possibleNo[count] = String.valueOf(list.get(count).getValue());
+                possibleNo[count + startingPoint] = String.valueOf(list.get(count).getValue());
                 if (count != list.size() - 1) {
                     System.out.print("");
                 }
@@ -90,6 +109,7 @@ public class Node {
 
             //create a String from the array that contains the values of the nodes of the current combination
             String noFromArray = String.join(",", possibleNo).replaceAll(",", "");
+            System.out.print(noFromArray);
             //validate it as a Greek phone number
             Validator val = new Validator(noFromArray);
             val.displayValidityMessage();
@@ -204,7 +224,7 @@ public class Node {
         return child;
     }
 
-    //overloaded addChild method for use with numbers entirely divisble by 10
+    //overloaded addChild method for use with numbers entirely divisible by 10
     public Node addChild(Node child, Integer nextNodeValue) {
 
         //if child value is not entirely divisible by 10
@@ -273,6 +293,7 @@ public class Node {
             if(child.getValue() < 100 && nextNodeValue < 10 || child.getValue() > 100 && nextNodeValue < 100) {
                 Node additionNode = new Node(child.value + nextNodeValue);
                 this.children.add(additionNode);
+
             }
 
         }

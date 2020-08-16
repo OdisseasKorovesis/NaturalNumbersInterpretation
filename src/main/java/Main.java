@@ -12,7 +12,7 @@ public class Main {
         ArrayList<Node> nodeListFromNo = new ArrayList(inChecker.convertNumberIntoListOfNodes(input));
         Node root = nodeListFromNo.get(0);
         nodeListFromNo.remove(0);
-        root.getAllCombinationsFromList(nodeListFromNo, root);
+        root.getAllCombinationsFromList(nodeListFromNo, root, inChecker.getLeadingZeroesCount());
 
     }
 }

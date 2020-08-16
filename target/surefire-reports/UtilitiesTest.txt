@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: InitialNumberCheckerTest
+Test set: UtilitiesTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 sec
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec

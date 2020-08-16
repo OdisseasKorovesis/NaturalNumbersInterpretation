@@ -3,6 +3,16 @@ import java.util.Scanner;
 
 public class InitialNumberChecker {
 
+    private int leadingZeroesCount = 0;
+
+    public int getLeadingZeroesCount() {
+        return leadingZeroesCount;
+    }
+
+    public void setLeadingZeroesCount(int leadingZeroesCount) {
+        this.leadingZeroesCount = leadingZeroesCount;
+    }
+
     //elicit an acceptable number from the user
     public String runInitialTests() {
         //retrieve user input
@@ -47,6 +57,17 @@ public class InitialNumberChecker {
     //convert the number given by the user to a list of Nodes
     public ArrayList<Node> convertNumberIntoListOfNodes(String number) {
         ArrayList<Node> listOfNodesFromNumber = new ArrayList();
+
+        //check if number has leading zeroes which will be lost in the Node conversion process and keep count of them
+        int leadingZeroesCount = Utilities.getLeadingZeroesCount(number);
+        setLeadingZeroesCount(leadingZeroesCount);
+
+        //remove all leading zeroes from the number since they will be added later on
+        while(number.charAt(0) == '0') {
+            number = number.replaceFirst("^0+(?!$)", "");
+            number = number.trim();
+        }
+
         String[] arrayOfNumberDigitGroups = number.split("\\s+");
         for (String digitGroup : arrayOfNumberDigitGroups) {
             listOfNodesFromNumber.add(new Node(Integer.parseInt(digitGroup)));

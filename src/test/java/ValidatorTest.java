@@ -23,20 +23,4 @@ public class ValidatorTest {
         Assert.assertTrue(correct4.checkNoValidity());
     }
 
-    @Test
-    public void testRemoveWhiteSpace() {
-        Validator val = new Validator("test test");
-        String input = "test test";
-        String output = "testtest";
-        String removedSpace = val.removeWhiteSpace(input);
-        Assert.assertEquals(output, removedSpace);
-    }
-
-    @Test
-    public void testGetDigitsOfNo() {
-        Validator val = new Validator("2106742553");
-        String firstThreeDigits = "210";
-        Assert.assertEquals(val.getDigitsOfNo(3), firstThreeDigits);
-    }
-
 }
