@@ -1,11 +1,22 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 public class InitialNumberCheckerTest {
 
 
+
+    @Test
+    public void testRunInitialTests() {
+        String input = "210 67 28 969";
+        InitialNumberChecker inChecker = new InitialNumberChecker();
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        Assert.assertEquals(input, inChecker.runInitialTests());
+    }
 
     @Test
     public void testIsInputEmpty() {

@@ -5,8 +5,9 @@ public class Node {
     private Integer value = null;
     private List<Node> children = new ArrayList();
     private Node parent = null;
+    private boolean skipAsLeafNode = false;
 
-    public Node(int value) {
+    public Node(Integer value) {
         this.value = value;
     }
 
@@ -34,6 +35,14 @@ public class Node {
         this.parent = parent;
     }
 
+    public boolean getSkipAsLeafNode() {
+        return skipAsLeafNode;
+    }
+
+    public void setSkipAsLeafNode(boolean skipAsLeafNode) {
+        this.skipAsLeafNode = skipAsLeafNode;
+    }
+
     //print tree structure
     // (unnecessary method for program execution, was used for testing purposes)
     public void printTree(Node node, String margin) {
@@ -50,15 +59,14 @@ public class Node {
 
         //loop through given list of nodes adding each subsequent element
         //only to the leaf nodes of the tree to create the final tree
-        for (int i = 0; i<listOfNodes.size(); i++) {
+        for (int i = 0; i < listOfNodes.size(); i++) {
             Set<Node> leafNodes = root.getAllLeafNodes();
             for (Node leafNode : leafNodes) {
-                //if not last item of list extract next Node value for use with
+                //if not last item of list extract next Node value, for use with
                 //nodes that have a value entirely divisible by 10
-                if(listOfNodes.size() > (i + 1)) {
+                if (listOfNodes.size() > (i + 1)) {
                     leafNode.addChild(listOfNodes.get(i), listOfNodes.get(i + 1).getValue());
-                }
-                else {
+                } else {
                     leafNode.addChild(listOfNodes.get(i));
                 }
 
@@ -77,7 +85,7 @@ public class Node {
             String[] possibleNo;
 
             //check if leading zeroes were recorded
-            if(leadingZeroesToBeAdded == 0) {
+            if (leadingZeroesToBeAdded == 0) {
                 //if no array length should be equal the node list size
                 possibleNo = new String[list.size()];
             } else {
@@ -85,7 +93,7 @@ public class Node {
                 //containing a string with as many zeroes as were initially recorded
                 possibleNo = new String[list.size() + 1];
                 StringBuilder str = new StringBuilder();
-                for(int i = 0; i<leadingZeroesToBeAdded; i++) {
+                for (int i = 0; i < leadingZeroesToBeAdded; i++) {
                     str.append("0");
                 }
                 possibleNo[0] = str.toString();
@@ -109,9 +117,10 @@ public class Node {
 
             //create a String from the array that contains the values of the nodes of the current combination
             String noFromArray = String.join(",", possibleNo).replaceAll(",", "");
-            System.out.print(noFromArray);
-            //validate it as a Greek phone number
-            Validator val = new Validator(noFromArray);
+            //use substring to redact dummy root element
+            System.out.print(noFromArray.substring(1));
+            //validate it as a Greek phone number, use substring again for same reason as above
+            Validator val = new Validator(noFromArray.substring(1));
             val.displayValidityMessage();
             System.out.println();
             interpretationCounter++;
@@ -123,7 +132,15 @@ public class Node {
     public Set<Node> getAllLeafNodes() {
         Set<Node> leafNodes = new HashSet<Node>();
         if (this.children.isEmpty()) {
-            leafNodes.add(this);
+            //handle leafNodes that have been marked to be skipped
+            //skip them, then reset their skipAsLeafNode value to false
+            //in order to be possible to continue the path after having
+            //skipped the desired value
+            if(this.getSkipAsLeafNode() == false) {
+                leafNodes.add(this);
+            } else {
+                this.setSkipAsLeafNode(false);
+            }
         } else {
             for (Node child : this.children) {
                 leafNodes.addAll(child.getAllLeafNodes());
@@ -284,16 +301,23 @@ public class Node {
                 tensNode.addChild(tensRemainderNode);
             }
 
-        //if value of child is entirely divisible by 10
+            //if value of child is entirely divisible by 10
         } else {
             //set as child immediately without breaking into parts(i.e. 10 should not be broken down to 10 0)
             child.setParent(this);
             this.children.add(child);
             //check if combination of child Node and next Node should be added as a child (i.e. 30 6 should be added as 36)
-            if(child.getValue() < 100 && nextNodeValue < 10 || child.getValue() > 100 && nextNodeValue < 100) {
+            if (child.getValue() < 100 && nextNodeValue < 10
+                    || child.getValue() % 100 == 0 && nextNodeValue < 100) {
                 Node additionNode = new Node(child.value + nextNodeValue);
                 this.children.add(additionNode);
-
+                //if nextNodeValue is added set skipAsLeafNode to true in order to
+                //avoid adding next node value another time in the specific path
+                additionNode.setSkipAsLeafNode(true);
+            } else if(child.getValue() > 100 && child.getValue() % 100 != 0 && nextNodeValue < 10) {
+                Node additionNode = new Node(child.value + nextNodeValue);
+                this.children.add(additionNode);
+                additionNode.setSkipAsLeafNode(true);
             }
 
         }

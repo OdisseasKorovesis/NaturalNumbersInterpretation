@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -10,9 +11,13 @@ public class Main {
         InitialNumberChecker inChecker = new InitialNumberChecker();
         String input = inChecker.runInitialTests();
         ArrayList<Node> nodeListFromNo = new ArrayList(inChecker.convertNumberIntoListOfNodes(input));
-        Node root = nodeListFromNo.get(0);
-        nodeListFromNo.remove(0);
-        root.getAllCombinationsFromList(nodeListFromNo, root, inChecker.getLeadingZeroesCount());
+
+        //set dummy Node as root which will be redacted later
+        //in order to be able to analyze first real node if necessary (i.e. 69 must be analyzed to 60 9)
+        Node root = new Node(0);
+
+        List<List<Node>> combinationsList = root.getAllCombinationsFromList(nodeListFromNo, root, inChecker.getLeadingZeroesCount());
+
 
     }
 }

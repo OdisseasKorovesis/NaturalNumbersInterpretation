@@ -13,6 +13,7 @@ public class Utilities {
         return requiredDigits;
     }
 
+    //get count of leading zeroes existing in a number presented as String
     public static int getLeadingZeroesCount(String number) {
         String numberNoWhiteSpace = Utilities.removeWhiteSpace(number);
         int leadingZeroesCount = numberNoWhiteSpace.length() - numberNoWhiteSpace.replaceAll("^0+", "").length();
