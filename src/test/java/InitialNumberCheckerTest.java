@@ -43,4 +43,14 @@ public class InitialNumberCheckerTest {
         Assert.assertTrue(listOfNodes.get(1).getValue() == 68 );
     }
 
+    @Test
+    public void testDoesInputContainOnlyThreeDigitGroupings() {
+        InitialNumberChecker inChecker = new InitialNumberChecker();
+        String correctInput = "210 5 6 782 45";
+        Assert.assertTrue(inChecker.doesInputContainOnlyThreeDigitGroupings(correctInput));
+
+        String wrongInput = "2143 5 6 782 45";
+        Assert.assertFalse(inChecker.doesInputContainOnlyThreeDigitGroupings(wrongInput));
+    }
+
 }

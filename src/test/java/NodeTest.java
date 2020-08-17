@@ -2,18 +2,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class NodeTest {
 
     @Test
-    public void testAddChild() {
+    public void testAddChild_oneParam() {
 
         //test in case of number < 13
         Node root = new Node(210);
         Node nodeToBeAdded = new Node(7);
         root.addChild(nodeToBeAdded);
-        System.out.println(root.getChildren().size());
         Assert.assertTrue(root.getChildren().contains(nodeToBeAdded));
 
         //test in case of number > 12
@@ -29,7 +30,6 @@ public class NodeTest {
         root3.addChild(nodeToBeAdded3);
         for (Node nd:
              root3.getChildren()) {
-            System.out.println(nd.getValue());
         }
         Assert.assertTrue(root3.getChildren().get(0).getValue() == 772
                 && root3.getChildren().get(1).getValue() == 700
@@ -84,6 +84,72 @@ public class NodeTest {
 //                Assert.assertTrue(combination.get(j).getValue() == correctNodeValues.get(j));
 //            }
 //        }
+    }
+
+    @Test
+    public void testGetAllLeafNodes() {
+        Node root = new Node(215);
+        Node child1 = new Node(253);
+        root.addChild(child1);
+
+        int[] orderedCorrectLeafNodeValues = {3, 3, 53, 253};
+        int[] returnedLeafNodeValues = new int[4];
+        Set<Node> leafNodes = root.getAllLeafNodes();
+        int counter = 0;
+        for (Node node :
+             leafNodes) {
+            returnedLeafNodeValues[counter] = node.getValue();
+            counter++;
+        }
+        Arrays.sort(returnedLeafNodeValues);
+        counter = 0;
+        for (Integer nodeValue: returnedLeafNodeValues) {
+            Assert.assertTrue(nodeValue == orderedCorrectLeafNodeValues[counter]);
+            counter++;
+        }
+
+    }
+
+    @Test
+    public void testGetPaths0() {
+        Node root = new Node(215);
+        Node child1 = new Node(253);
+        root.addChild(child1);
+        List<List<Node>> returnedResult = root.getPaths(root);
+        for (Node nd:
+             returnedResult.get(1)) {
+            System.out.println(nd.getValue());
+        }
+        List<int[]> arraysOfNodeListsValues = new ArrayList();
+        int counter = 0;
+        for (List<Node> nodeList : returnedResult) {
+            int[] listOfValues = new int[nodeList.size()];
+            for (Node nd:
+                 nodeList) {
+            listOfValues[counter] = nd.getValue();
+            counter++;
+            }
+            Arrays.sort(listOfValues);
+            arraysOfNodeListsValues.add(listOfValues);
+            counter = 0;
+        }
+
+        List<int[]> arrayOfExpectedNodeListsValues = new ArrayList();
+        int[] path1 = {215, 253};
+        int[] path2 = {53, 200, 215};
+        int[] path3 = {3, 50, 200, 215};
+        int[] path4 = {3, 215, 250};
+        arrayOfExpectedNodeListsValues.add(path1);
+        arrayOfExpectedNodeListsValues.add(path2);
+        arrayOfExpectedNodeListsValues.add(path3);
+        arrayOfExpectedNodeListsValues.add(path4);
+
+        for (int i = 0; i<arraysOfNodeListsValues.size(); i++) {
+
+            for (int j = 0; j < arraysOfNodeListsValues.get(i).length; j++) {
+                Assert.assertTrue(arraysOfNodeListsValues.get(i)[j] == arrayOfExpectedNodeListsValues.get(i)[j]);
+            }
+        }
     }
 
 }

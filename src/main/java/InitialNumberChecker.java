@@ -30,6 +30,9 @@ public class InitialNumberChecker {
             else if(!doesInputContainLetters(input)) {
                 System.out.println("A phone number cannot contain letters, please enter a valid phone number.");
                 input = sc.nextLine();
+            } else if (!doesInputContainOnlyThreeDigitGroupings(input)){
+                System.out.println("A phone number can contain digit groupings of only up to 3 digits, please enter a valid phone number.");
+                input = sc.nextLine();
             } else {
                 flag = false;
             }
@@ -52,6 +55,18 @@ public class InitialNumberChecker {
             return true;
         else
             return false;
+    }
+
+    //check if user has provided digit groupings with more than 3 digits
+    public boolean doesInputContainOnlyThreeDigitGroupings(String input) {
+        String[] arrayOfNumberDigitGroups = input.split("\\s+");
+        boolean doesContain = true;
+        for (String digitGroup: arrayOfNumberDigitGroups) {
+            if(digitGroup.length() > 3) {
+                doesContain = false;
+            }
+        }
+        return doesContain;
     }
 
     //convert the number given by the user to a list of Nodes
