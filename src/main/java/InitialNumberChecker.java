@@ -30,6 +30,7 @@ public class InitialNumberChecker {
             else if(!doesInputContainLetters(input)) {
                 System.out.println("A phone number cannot contain letters, please enter a valid phone number.");
                 input = sc.nextLine();
+            //if String contains a digit grouping of more than three digits keep asking for input until valid String is provided
             } else if (!doesInputContainOnlyThreeDigitGroupings(input)){
                 System.out.println("A phone number can contain digit groupings of only up to 3 digits, please enter a valid phone number.");
                 input = sc.nextLine();

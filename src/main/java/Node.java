@@ -308,12 +308,22 @@ public class Node {
             this.children.add(child);
             //check if combination of child Node and next Node should be added as a child (i.e. 30 6 should be added as 36)
             if (child.getValue() < 100 && nextNodeValue < 10
-                    || child.getValue() % 100 == 0 && nextNodeValue < 100) {
+                    || child.getValue() % 100 == 0 && nextNodeValue < 13) {
                 Node additionNode = new Node(child.value + nextNodeValue);
                 this.children.add(additionNode);
                 //if nextNodeValue is added set skipAsLeafNode to true in order to
                 //avoid adding next node value another time in the specific path
                 additionNode.setSkipAsLeafNode(true);
+            } else if(child.getValue() % 100 == 0 && nextNodeValue < 100) {
+                Node additionNode = new Node(child.value + nextNodeValue);
+                this.children.add(additionNode);
+                additionNode.setSkipAsLeafNode(true);
+                Node additionNode2 = new Node(child.value + (nextNodeValue - (nextNodeValue % 10)));
+                this.children.add(additionNode2);
+                additionNode2.setSkipAsLeafNode(true);
+                Node additionNode3 = new Node(additionNode.getValue() - additionNode2.getValue());
+                additionNode3.setSkipAsLeafNode(true);
+                additionNode2.getChildren().add(additionNode3);
             } else if(child.getValue() > 100 && child.getValue() % 100 != 0 && nextNodeValue < 10) {
                 Node additionNode = new Node(child.value + nextNodeValue);
                 this.children.add(additionNode);
