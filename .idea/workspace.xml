@@ -3,10 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b53e6529-450e-4f59-a651-3b3ea34fa58d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/InitialNumberChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InitialNumberChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/InitialNumberCheckerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/InitialNumberCheckerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/NodeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/NodeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ValidatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/InitialNumberCheckerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/InitialNumberCheckerTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-InitialNumberCheckerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-InitialNumberCheckerTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-NodeTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-NodeTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-ValidatorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-ValidatorTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/ValidatorTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/ValidatorTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/NodeTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/NodeTest.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,5 +95,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

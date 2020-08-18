@@ -39,6 +39,61 @@ public class NodeTest {
     }
 
     @Test
+    public void testAddChild_twoParam() {
+
+        Node root = new Node(213);
+        Node firstNode = new Node(50);
+        Node secondNode = new Node(3);
+
+        root.addChild(firstNode, secondNode.getValue());
+        for (Node nd: root.getAllLeafNodes()) {
+            nd.addChild(secondNode);
+        }
+
+        int[] expectedRootChildrenValues = {50, 53};
+        int expectedFirstNodeChildren = 3;
+        boolean isChildrenListOfGeneratedNodeEmpty = true;
+
+        int[] returnedRootChildrenValues = new int[2];
+        int counter = 0;
+        for (Node nd: root.getChildren()) {
+            returnedRootChildrenValues[counter] = nd.getValue();
+            counter++;
+        }
+        Arrays.sort(returnedRootChildrenValues);
+        counter = 0;
+        for (int value : expectedRootChildrenValues) {
+            Assert.assertTrue(returnedRootChildrenValues[counter] == expectedRootChildrenValues[counter]);
+            counter++;
+        }
+
+        for(Node nd: root.getChildren()) {
+            if(nd.getValue() == 50) {
+                Assert.assertTrue(nd.getChildren().get(0).getValue() == 3);
+            } else if(nd.getValue() == 53) {
+                Assert.assertTrue(nd.getChildren().isEmpty());
+            }
+        }
+
+        Node root2 = new Node(213);
+        Node firstNode2 = new Node(50);
+        Node secondNode2 = new Node(12);
+
+        root2.addChild(firstNode2, secondNode2.getValue());
+        for (Node nd: root2.getAllLeafNodes()) {
+            nd.addChild(secondNode2);
+        }
+
+        counter = 0;
+        for (Node nd: root2.getChildren()) {
+            Assert.assertTrue(nd.getValue() == 50);
+            Assert.assertTrue(nd.getChildren().get(counter).getValue() == 12);
+            counter++;
+        }
+
+    }
+
+    @Test
     public void testGetAllCombinationsFromList() {
         List<Node> listOfNodes = new ArrayList();
         Node root = new Node(210);

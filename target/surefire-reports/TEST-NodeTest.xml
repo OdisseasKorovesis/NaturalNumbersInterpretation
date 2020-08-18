@@ -67,7 +67,7 @@
   </properties>
   <testcase classname="NodeTest" name="testGetAllCombinationsFromList" time="0.002"/>
   <testcase classname="NodeTest" name="testGetAllLeafNodes" time="0"/>
-  <testcase classname="NodeTest" name="testAddChild_twoParam" time="0"/>
+  <testcase classname="NodeTest" name="testAddChild_twoParam" time="0.001"/>
   <testcase classname="NodeTest" name="testAddChild_oneParam" time="0"/>
-  <testcase classname="NodeTest" name="testGetPaths0" time="0.001"/>
+  <testcase classname="NodeTest" name="testGetPaths0" time="0"/>
 </testsuite>
