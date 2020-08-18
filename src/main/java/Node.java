@@ -62,6 +62,15 @@ public class Node {
         for (int i = 0; i < listOfNodes.size(); i++) {
             Set<Node> leafNodes = root.getAllLeafNodes();
             for (Node leafNode : leafNodes) {
+
+                //handle leafNodes that have been marked to be skipped
+                //reset their skipAsLeafNode value to false then skip them
+                //in order to be possible to continue the path after having
+                //skipped the desired value
+                if(leafNode.getSkipAsLeafNode() == true) {
+                    leafNode.setSkipAsLeafNode(false);
+                    continue;
+                }
                 //if not last item of list extract next Node value, for use with
                 //nodes that have a value entirely divisible by 10
                 if (listOfNodes.size() > (i + 1)) {
@@ -132,15 +141,7 @@ public class Node {
     public Set<Node> getAllLeafNodes() {
         Set<Node> leafNodes = new HashSet<Node>();
         if (this.children.isEmpty()) {
-            //handle leafNodes that have been marked to be skipped
-            //skip them, then reset their skipAsLeafNode value to false
-            //in order to be possible to continue the path after having
-            //skipped the desired value
-            if(this.getSkipAsLeafNode() == false) {
                 leafNodes.add(this);
-            } else {
-                this.setSkipAsLeafNode(false);
-            }
         } else {
             for (Node child : this.children) {
                 leafNodes.addAll(child.getAllLeafNodes());
