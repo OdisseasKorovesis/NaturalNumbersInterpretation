@@ -51,8 +51,6 @@ public class NodeTest {
         }
 
         int[] expectedRootChildrenValues = {50, 53};
-        int expectedFirstNodeChildren = 3;
-        boolean isChildrenListOfGeneratedNodeEmpty = true;
 
         int[] returnedRootChildrenValues = new int[2];
         int counter = 0;
@@ -65,14 +63,6 @@ public class NodeTest {
         for (int value : expectedRootChildrenValues) {
             Assert.assertTrue(returnedRootChildrenValues[counter] == expectedRootChildrenValues[counter]);
             counter++;
-        }
-
-        for(Node nd: root.getChildren()) {
-            if(nd.getValue() == 50) {
-                Assert.assertTrue(nd.getChildren().get(0).getValue() == 3);
-            } else if(nd.getValue() == 53) {
-                Assert.assertTrue(nd.getChildren().isEmpty());
-            }
         }
 
         Node root2 = new Node(213);
@@ -101,44 +91,6 @@ public class NodeTest {
         listOfNodes.add(nd);
         List<List<Node>> possibleCombinations = root.getAllCombinationsFromList((ArrayList)listOfNodes, root, 0);
         Assert.assertTrue(possibleCombinations.size() == 4);
-
-//        List<List<Integer>> listOfpossibleComboNodeValues = new ArrayList();
-//
-//        List<Integer> firstComboValues = new ArrayList();
-//        firstComboValues.add(210);
-//        firstComboValues.add(25);
-//        firstComboValues.add(3);
-//        listOfpossibleComboNodeValues.add(firstComboValues);
-//
-//        List<Integer> secondComboValues = new ArrayList();
-//        secondComboValues.add(210);
-//        secondComboValues.add(200);
-//        secondComboValues.add(53);
-//        secondComboValues.add(3);
-//        listOfpossibleComboNodeValues.add(secondComboValues);
-//
-//        List<Integer> thirdComboValues = new ArrayList();
-//        thirdComboValues.add(210);
-//        thirdComboValues.add(200);
-//        thirdComboValues.add(50);
-//        thirdComboValues.add(3);
-//        listOfpossibleComboNodeValues.add(thirdComboValues);
-//
-//        List<Integer> fourthComboValues = new ArrayList();
-//        fourthComboValues.add(210);
-//        fourthComboValues.add(250);
-//        fourthComboValues.add(3);
-//        listOfpossibleComboNodeValues.add(fourthComboValues);
-//
-//        for(int i = 0; i<listOfpossibleComboNodeValues.size(); i++) {
-//            List<Node> combination = possibleCombinations.get(i);
-//            List<Integer> correctNodeValues = listOfpossibleComboNodeValues.get(i);
-//            for(int j = 0; j<correctNodeValues.size(); j++) {
-//                System.out.println(combination.get(j).getValue());
-//                System.out.println(correctNodeValues.get(j));
-//                Assert.assertTrue(combination.get(j).getValue() == correctNodeValues.get(j));
-//            }
-//        }
     }
 
     @Test
